@@ -1,4 +1,4 @@
-<p align="center">TinyRouter - Smallest router package</p>
+<p align="center">TinyRouter - Smallest PHP router package</p>
 
 ## About TinyRouter
 
