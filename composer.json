@@ -1,0 +1,21 @@
+{
+    "name": "kingbarry/tiny-router",
+    "description": "It's a small router make for small project",
+    "type": "plugin",
+    "autoload": {
+        "psr-4": {
+            "Kingbarry\\TinyRouter\\TinyRouter\\": "TinyRouter/",
+            "TinyRouter\\": "TinyRouter/"
+        },
+        "files": [
+            "TinyRouter/Helper/functions.php"
+        ]
+    },
+    "authors": [
+        {
+            "name": "Tahirou",
+            "email": "lmtahirou@gmail.com"
+        }
+    ],
+    "require": {}
+}
