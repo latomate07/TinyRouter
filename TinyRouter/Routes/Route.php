@@ -8,7 +8,7 @@ class Route
      * 
      * @param string $uri
      * @param callable $callback
-     * @return void
+     * @return mixed|void
      */
     public static function get(string $uri, callable $callback)
     {
@@ -18,6 +18,23 @@ class Route
         if(substr($uri, 0, 1) !== "/")
         {
             $uri = "/" . $uri;
+        }
+
+        // Handle uri parameters
+        $requestArguments = array_values(array_filter(explode('/', $request), fn($value) => $value !== ""));
+        $uriParameters = array_values(array_filter(explode('/', $uri), fn($element) => substr($element, 0, 1) === '{'));
+
+        if(count($uriParameters) > 0)
+        {
+            // Remove first argument from request uri to count only parameter catched by server
+            unset($requestArguments[array_key_first($requestArguments)]);
+            if(count($requestArguments) !== count($uriParameters))
+            {
+                header("HTTP/1.1 404 Not Found");
+                return;
+            }
+
+            return $callback();
         }
 
         if($request === $uri && $_SERVER['REQUEST_METHOD'] === $allowedRequestMethod)
@@ -43,6 +60,23 @@ class Route
         if(substr($uri, 0, 1) !== "/")
         {
             $uri = "/" . $uri;
+        }
+
+        // Handle uri parameters
+        $requestArguments = array_values(array_filter(explode('/', $request), fn($value) => $value !== ""));
+        $uriParameters = array_values(array_filter(explode('/', $uri), fn($element) => substr($element, 0, 1) === '{'));
+
+        if(count($uriParameters) > 0)
+        {
+            // Remove first argument from request uri to count only parameter catched by server
+            unset($requestArguments[array_key_first($requestArguments)]);
+            if(count($requestArguments) !== count($uriParameters))
+            {
+                header("HTTP/1.1 404 Not Found");
+                return;
+            }
+
+            return $callback();
         }
 
         if($request === $uri && $_SERVER['REQUEST_METHOD'] === $allowedRequestMethod)
